@@ -1,0 +1,78 @@
+﻿@page "/characterList"
+
+<h3>CharacterList</h3>
+
+<ul>
+    @foreach (var profile in profiles)
+    {
+        <li>
+            <label for="Name">Name</label>
+
+            <input id="Name" name="Name" @bind="profile.Name" />
+        </li>
+        <li>
+            <label for="Age">Age</label>
+
+            <input id="Age" name="Age" @bind="profile.Age" />
+        </li>
+        <li>
+            <label for="Profession">Profession</label>
+
+            <input id="Profession" name="Profession" @bind="profile.Profession" />
+        </li>
+        <li>
+            <label for="isFictional">Fictional Character</label>
+            <input name="isFictional" type="checkbox" @bind="profile.IsFictional" />
+
+        </li>
+    }
+</ul>
+
+<input placeholder="Add new profile" @bind="newProfile" />
+<button @onclick="AddProfile">Add Profile</button>
+
+
+@code {
+
+    private string newProfile;
+    private List<Character> profiles = new();
+
+    private void AddProfile()
+    {
+        // Todo: Add the todo
+        if (!string.IsNullOrWhiteSpace(newProfile))
+        {
+            Character newItem = new Character
+            {
+                Name = newProfile,
+                IsFictional = false
+            };
+            profiles.Add(newItem);
+            newProfile = string.Empty;
+        }
+    }
+
+
+}
+
+<table class="table table-striped table-bordered" style="margin-top: 20px;">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Profession</th>
+            <th>IsFictional</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var profile in profiles)
+        {
+            <tr>
+                <td>@profile.Name</td>
+                <td>@profile.Age</td>
+                <td>@profile.Profession</td>
+                <td>@profile.IsFictional</td>
+            </tr>
+        }
+    </tbody>
+</table>
